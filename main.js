@@ -133,7 +133,6 @@ onload = () => {
   };
 
   giftTrigger.addEventListener("click", openModal);
-  likeModalBackdrop.addEventListener("click", closeModal);
 
   btnNo.addEventListener("pointerdown", onNoPress);
   btnNo.addEventListener("click", (e) => {
