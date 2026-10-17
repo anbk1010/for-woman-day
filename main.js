@@ -6,13 +6,12 @@ onload = () => {
 
   const giftTrigger = document.getElementById("giftTrigger");
   const likeModal = document.getElementById("likeModal");
-  const likeModalBackdrop = document.getElementById("likeModalBackdrop");
   const likeActions = document.getElementById("likeActions");
   const likeSuccess = document.getElementById("likeSuccess");
   const btnYes = document.getElementById("btnYes");
   const btnNo = document.getElementById("btnNo");
 
-  if (!giftTrigger || !likeModal || !btnNo || !btnYes) return;
+  if (!giftTrigger || !likeModal || !likeActions || !btnNo || !btnYes) return;
 
   let ignoreYesUntil = 0;
   let suppressYesTimer = null;
@@ -23,15 +22,11 @@ onload = () => {
     const vv = window.visualViewport;
     if (!vv) {
       return {
-        left: 0,
-        top: 0,
         width: window.innerWidth,
         height: window.innerHeight,
       };
     }
     return {
-      left: vv.offsetLeft,
-      top: vv.offsetTop,
       width: vv.width,
       height: vv.height,
     };
@@ -45,6 +40,9 @@ onload = () => {
     btnNo.style.top = "";
     btnNo.style.zIndex = "";
     btnNo.classList.remove("like-btn--escaped");
+    if (btnNo.parentElement !== likeActions) {
+      likeActions.appendChild(btnNo);
+    }
   };
 
   const suppressYesActivation = () => {
@@ -58,21 +56,23 @@ onload = () => {
   };
 
   const clampNoButton = () => {
-    if (btnNo.style.position !== "fixed") return;
+    if (!btnNo.classList.contains("like-btn--escaped")) return;
 
     const pad = getEdgePad();
     const vv = getViewport();
     const rect = btnNo.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
+    const w = rect.width || btnNo.offsetWidth;
+    const h = rect.height || btnNo.offsetHeight;
 
-    let x = parseFloat(btnNo.style.left) || rect.left;
-    let y = parseFloat(btnNo.style.top) || rect.top;
+    let x = parseFloat(btnNo.style.left);
+    let y = parseFloat(btnNo.style.top);
+    if (Number.isNaN(x)) x = rect.left;
+    if (Number.isNaN(y)) y = rect.top;
 
-    const minX = vv.left + pad;
-    const minY = vv.top + pad;
-    const maxX = vv.left + vv.width - w - pad;
-    const maxY = vv.top + vv.height - h - pad;
+    const minX = pad;
+    const minY = pad;
+    const maxX = vv.width - w - pad;
+    const maxY = vv.height - h - pad;
 
     x = Math.min(Math.max(x, minX), Math.max(minX, maxX));
     y = Math.min(Math.max(y, minY), Math.max(minY, maxY));
@@ -82,21 +82,23 @@ onload = () => {
   };
 
   const moveNoButton = () => {
+    if (btnNo.parentElement !== likeModal) {
+      likeModal.appendChild(btnNo);
+    }
+
     const pad = getEdgePad();
     const vv = getViewport();
     const rect = btnNo.getBoundingClientRect();
-    const w = rect.width || btnNo.offsetWidth;
-    const h = rect.height || btnNo.offsetHeight;
+    const w = Math.min(rect.width || btnNo.offsetWidth || 120, vv.width - pad * 2);
+    const h = rect.height || btnNo.offsetHeight || 44;
 
-    const minX = vv.left + pad;
-    const minY = vv.top + pad;
-    const maxX = vv.left + vv.width - w - pad;
-    const maxY = vv.top + vv.height - h - pad;
+    const minX = pad;
+    const minY = pad;
+    const maxX = Math.max(minX, vv.width - w - pad);
+    const maxY = Math.max(minY, vv.height - h - pad);
 
-    const spanX = Math.max(0, maxX - minX);
-    const spanY = Math.max(0, maxY - minY);
-    const x = minX + Math.random() * spanX;
-    const y = minY + Math.random() * spanY;
+    const x = minX + Math.random() * (maxX - minX);
+    const y = minY + Math.random() * (maxY - minY);
 
     btnNo.style.position = "fixed";
     btnNo.style.left = `${x}px`;
@@ -112,7 +114,9 @@ onload = () => {
     suppressYesActivation();
   };
 
-  const openModal = () => {
+  const openModal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     likeModal.classList.remove("like-modal--hidden");
     likeModal.setAttribute("aria-hidden", "false");
     likeActions.classList.remove("like-modal__actions--hidden");
@@ -121,15 +125,6 @@ onload = () => {
     btnYes.style.pointerEvents = "";
     resetNoButton();
     document.body.classList.add("like-modal-open");
-  };
-
-  const closeModal = () => {
-    likeModal.classList.add("like-modal--hidden");
-    likeModal.setAttribute("aria-hidden", "true");
-    ignoreYesUntil = 0;
-    btnYes.style.pointerEvents = "";
-    resetNoButton();
-    document.body.classList.remove("like-modal-open");
   };
 
   giftTrigger.addEventListener("click", openModal);
@@ -162,6 +157,7 @@ onload = () => {
     true,
   );
 
+  window.addEventListener("resize", clampNoButton);
   window.visualViewport?.addEventListener("resize", clampNoButton);
   window.visualViewport?.addEventListener("scroll", clampNoButton);
 

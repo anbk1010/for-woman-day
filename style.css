@@ -18,7 +18,6 @@ body {
   min-height: 100dvh;
   background-color: var(--dark-color);
   overflow: hidden;
-  perspective: 1000px;
   padding: 50px 0px;
   padding-bottom: max(50px, env(safe-area-inset-bottom, 0px));
 }
@@ -35,6 +34,7 @@ body.like-modal-open {
   width: 100%;
   height: 100%;
   filter: blur(0.1vmin);
+  pointer-events: none;
 }
 
 .happy-woman-day {
@@ -47,6 +47,8 @@ body.like-modal-open {
 .flowers {
   position: relative;
   transform: scale(0.9);
+  perspective: 1000px;
+  pointer-events: none;
 }
 
 .flower {
@@ -1255,7 +1257,8 @@ body.like-modal-open {
   bottom: max(8%, calc(env(safe-area-inset-bottom, 0px) + 14px));
   left: 50%;
   transform: translateX(-50%);
-  z-index: 101;
+  z-index: 5000;
+  pointer-events: auto;
   max-width: calc(100vw - 32px);
   padding: 14px 28px;
   font-family: Arial, sans-serif;
@@ -1299,7 +1302,7 @@ body.like-modal-open {
 .like-modal {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1400,6 +1403,8 @@ body.like-modal-open {
 .like-btn--no.like-btn--escaped {
   flex: none;
   min-width: max-content;
+  max-width: calc(100vw - 20px);
+  margin: 0;
 }
 
 .like-modal__success {
@@ -1415,10 +1420,47 @@ body.like-modal-open {
 }
 
 @media (max-width: 600px) {
+  .night {
+    filter: none;
+  }
+
+  .flowers {
+    transform: scale(0.72);
+  }
+
+  .flower__leafs::after,
+  .flower__light,
+  .flower__grass__overlay,
+  .flower__g-right--2 .leaf,
+  .long-g {
+    filter: none;
+  }
+
+  .flower--1,
+  .flower--2,
+  .flower--3,
+  .flower__grass--1,
+  .flower__grass--2,
+  .flower__g-long,
+  .flower__g-right--1,
+  .flower__g-right--2,
+  .flower__g-front,
+  .flower__g-fr,
+  .flower__light,
+  .long-g .leaf {
+    animation: none;
+  }
+
   .gift-trigger {
-    bottom: max(5%, calc(env(safe-area-inset-bottom, 0px) + 18px));
+    bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 16px));
     padding: 16px 22px;
     font-size: 16px;
+    animation: none;
+  }
+
+  .like-modal__backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .like-modal {
