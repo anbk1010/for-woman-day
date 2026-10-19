@@ -170,8 +170,9 @@ body.like-modal-open {
   transform: translate(-50%, -100%);
   width: 8vmin;
   height: 8vmin;
-  background-color: #d08cff;
-  filter: blur(10vmin);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(208, 140, 255, 0.8) 0%, rgba(208, 140, 255, 0.4) 40%, transparent 75%);
+  filter: blur(2vmin);
 }
 
 .flower__leaf {
@@ -204,11 +205,11 @@ body.like-modal-open {
 }
 
 .flower__leaf--4 {
-  width: 8.5vmin;
-  height: 8.5vmin;
+  width: 8vmin;
+  height: 8vmin;
   transform-origin: bottom left;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  transform: translate(0%, 18%) rotateX(58deg) rotate(-43deg);
+  border-radius: 50%;
+  transform: translate(0%, 18%) rotateX(55deg) rotate(-43deg);
   background-image: linear-gradient(to top, #7b2cbf, #e6c3ff);
   z-index: 1;
   opacity: 0.85;
@@ -1432,7 +1433,12 @@ body.like-modal-open {
     margin-bottom: clamp(120px, 18vh, 180px);
   }
 
-  .flower__leafs::after,
+  .flower__leafs::after {
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(208, 140, 255, 0.6) 0%, transparent 70%);
+    filter: none;
+  }
+
   .flower__light,
   .flower__grass__overlay,
   .flower__g-right--2 .leaf,
