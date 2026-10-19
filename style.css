@@ -194,9 +194,9 @@ body.like-modal-open {
 }
 
 .flower__leaf--2 {
-  width: 6.2vmin;
-  height: 11.5vmin;
-  transform: translate(-50%, -2%) rotateX(18deg);
+  width: 7vmin;
+  height: 12vmin;
+  transform: translate(-50%, -2%) rotateX(20deg);
   border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
 }
 
@@ -206,13 +206,14 @@ body.like-modal-open {
 
 .flower__leaf--4 {
   width: 8vmin;
-  height: 8vmin;
-  transform-origin: bottom left;
-  border-radius: 50%;
-  transform: translate(0%, 18%) rotateX(55deg) rotate(-43deg);
+  height: 9.5vmin;
+  transform-origin: bottom center;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform: translate(-50%, 12%) rotateX(-30deg);
   background-image: linear-gradient(to top, #7b2cbf, #e6c3ff);
-  z-index: 1;
-  opacity: 0.85;
+  z-index: 2;
+  opacity: 0.95;
+  box-shadow: inset 0 0 2vmin rgba(255, 255, 255, 0.5);
 }
 
 .flower__white-circle {
@@ -1446,26 +1447,10 @@ body.like-modal-open {
     filter: none;
   }
 
-  .flower--1,
-  .flower--2,
-  .flower--3,
-  .flower__grass--1,
-  .flower__grass--2,
-  .flower__g-long,
-  .flower__g-right--1,
-  .flower__g-right--2,
-  .flower__g-front,
-  .flower__g-fr,
-  .flower__light,
-  .long-g .leaf {
-    animation: none;
-  }
-
   .gift-trigger {
-    bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 16px));
-    padding: 16px 22px;
+    bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 16px));
+    padding: 16px 24px;
     font-size: 16px;
-    animation: none;
   }
 
   .like-modal__backdrop {
