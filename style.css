@@ -180,7 +180,7 @@ body.like-modal-open {
   left: 50%;
   width: 8vmin;
   height: 11vmin;
-  border-radius: 51% 49% 47% 53%/44% 45% 55% 69%;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   background-color: #e6c3ff;
   background-image: linear-gradient(to top, #9d4edd, #e6c3ff);
   transform-origin: bottom center;
@@ -193,7 +193,8 @@ body.like-modal-open {
 }
 
 .flower__leaf--2 {
-  transform: translate(-50%, -4%) rotateX(40deg);
+  transform: translate(-50%, -4%) rotateX(36deg);
+  border-radius: 50% 50% 48% 48% / 70% 70% 30% 30%;
 }
 
 .flower__leaf--3 {
@@ -201,14 +202,14 @@ body.like-modal-open {
 }
 
 .flower__leaf--4 {
-  width: 8vmin;
-  height: 8vmin;
+  width: 8.5vmin;
+  height: 8.5vmin;
   transform-origin: bottom left;
-  border-radius: 4vmin 10vmin 4vmin 4vmin;
-  transform: translate(0%, 18%) rotateX(70deg) rotate(-43deg);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform: translate(0%, 18%) rotateX(58deg) rotate(-43deg);
   background-image: linear-gradient(to top, #7b2cbf, #e6c3ff);
   z-index: 1;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .flower__white-circle {
@@ -1425,7 +1426,8 @@ body.like-modal-open {
   }
 
   .flowers {
-    transform: scale(0.72);
+    transform: scale(0.82);
+    margin-bottom: clamp(120px, 18vh, 180px);
   }
 
   .flower__leafs::after,
